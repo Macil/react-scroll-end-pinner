@@ -1,0 +1,67 @@
+{
+  "name": "react-scroll-end-pinner",
+  "version": "0.1.0",
+  "description": "React component for chatbox scroll behavior",
+  "main": "dist/src/index.js",
+  "sideEffects": false,
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "prepare": "husky && rimraf dist && babel -s true -d dist/src/ src/ -x .ts,.tsx --ignore '**/*.test.*' && tsc",
+    "test": "npm run lint && jest && tsc --noEmit --emitDeclarationOnly false",
+    "lint": "eslint .",
+    "lint-fix": "eslint . --fix"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Macil/react-scroll-end-pinner.git"
+  },
+  "keywords": [
+    "react",
+    "scrolling",
+    "chatbox"
+  ],
+  "author": "Chris Cowan <agentme49@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Macil/react-scroll-end-pinner/issues"
+  },
+  "homepage": "https://github.com/Macil/react-scroll-end-pinner#readme",
+  "dependencies": {
+    "react-use": "^17.5.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.23.9",
+    "@babel/core": "^7.23.9",
+    "@babel/preset-env": "^7.23.9",
+    "@babel/preset-react": "^7.23.3",
+    "@babel/preset-typescript": "^7.23.3",
+    "@testing-library/jest-dom": "^6.4.2",
+    "@testing-library/react": "^14.2.1",
+    "@types/jest": "^29.5.12",
+    "@types/react": "^18.2.57",
+    "@types/react-dom": "^18.2.19",
+    "babel-jest": "^29.7.0",
+    "eslint": "^8.56.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-react": "^7.33.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "husky": "^9.0.11",
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
+    "lint-staged": "^15.2.2",
+    "prettier": "3.2.5",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "rimraf": "^5.0.5",
+    "typescript": "^5.3.3",
+    "typescript-eslint": "^7.0.2"
+  },
+  "peerDependencies": {
+    "react": "^18.0.0"
+  },
+  "lint-staged": {
+    "**/*": "prettier --write --ignore-unknown"
+  }
+}

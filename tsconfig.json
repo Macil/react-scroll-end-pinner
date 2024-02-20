@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "target": "es2016",
+    "jsx": "react-jsx",
+    "moduleDetection": "force",
+    "module": "CommonJS",
+    "rootDir": "./",
+    "moduleResolution": "Node",
+    "declaration": true,
+    // babel is used instead of tsc for creating non-declaration js files.
+    "emitDeclarationOnly": true,
+    "outDir": "dist",
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "skipLibCheck": true
+  }
+}
