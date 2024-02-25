@@ -1,7 +1,12 @@
 "use client";
 
 import { ReactNode, useRef } from "react";
-import useIsomorphicLayoutEffect from "react-use/lib/useIsomorphicLayoutEffect";
+import { createRequire } from "module";
+const require = createRequire(import.meta.url);
+// TODO types for this import are broken
+const {
+  default: useIsomorphicLayoutEffect,
+} = require("react-use/lib/useIsomorphicLayoutEffect.js");
 
 export interface Props {
   children?: ReactNode;

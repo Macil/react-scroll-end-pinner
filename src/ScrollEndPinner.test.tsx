@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 
-import ScrollEndPinner from "./ScrollEndPinner";
+import ScrollEndPinner from "./ScrollEndPinner.js";
 
 const mockResizeObservers: MockResizeObserver[] = [];
 

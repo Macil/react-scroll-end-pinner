@@ -3,9 +3,9 @@
     "target": "es2016",
     "jsx": "react-jsx",
     "moduleDetection": "force",
-    "module": "CommonJS",
+    "module": "Node16",
     "rootDir": "./",
-    "moduleResolution": "Node",
+    "moduleResolution": "Node16",
     "declaration": true,
     // babel is used instead of tsc for creating non-declaration js files.
     "emitDeclarationOnly": true,
