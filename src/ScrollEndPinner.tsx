@@ -1,6 +1,6 @@
 "use client";
 
-import { ReactNode, useRef } from "react";
+import { ReactNode, useRef, CSSProperties } from "react";
 import useIsomorphicLayoutEffect from "react-use/lib/useIsomorphicLayoutEffect";
 
 export interface ScrollEndPinnerProps {
@@ -30,6 +30,11 @@ export interface ScrollEndPinnerProps {
 }
 
 const autoScrollMaxTime = 5_000;
+
+const OUTER_EL_STYLE: CSSProperties = {
+  height: "100%",
+  overflow: "hidden auto",
+};
 
 /**
  * This component starts scrolled to the end and then stays scrolled to the end
@@ -189,20 +194,10 @@ export function ScrollEndPinner(props: ScrollEndPinnerProps) {
   return (
     // This outermost div exists because Firefox has a bug where ResizeObservers don't work right
     // on scrollable elements.
-    <div
-      ref={extraOuterRef}
-      style={{ display: "flex", minHeight: 0, ...props.style }}
-      className={props.className}
-    >
+    <div ref={extraOuterRef} style={props.style} className={props.className}>
       <div
         ref={outerRef}
-        style={{
-          flex: 1,
-          overflow: "hidden auto",
-          // TODO should this be a prop? Do we need it?
-          // Can we move it to the outer element so it can be overridden?
-          padding: "4px",
-        }}
+        style={OUTER_EL_STYLE}
         onScroll={
           scrollBehavior === "instant" ? undefined : scrollContainerOnScroll
         }

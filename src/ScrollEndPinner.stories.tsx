@@ -8,8 +8,8 @@ interface Props {
 }
 
 function ScrollEndPinnerStory(props: Props) {
-  const COUNT_START = 10;
-  const COUNT_MAX = 60;
+  const COUNT_START = 8;
+  const COUNT_MAX = 40;
   const [count, setCount] = useState(COUNT_START);
   useEffect(() => {
     const interval = setInterval(() => {
@@ -19,19 +19,30 @@ function ScrollEndPinnerStory(props: Props) {
   }, []);
   return (
     <div>
-      <div>
+      <p>
         Every second, one message will be added to the bottom of the list. The
         list will reset once it has {COUNT_MAX} messages.
-      </div>
+      </p>
       <ScrollEndPinner
         {...props}
-        style={{ height: "300px", width: "400px", background: "#ddd" }}
+        style={{
+          height: "300px",
+          width: "400px",
+          background: "#999",
+          border: "4px solid blue",
+          borderRadius: "5px",
+        }}
       >
-        {new Array(count).fill(null).map((_value, i) => (
-          <div key={i} style={{ border: "1px solid black", margin: "4px" }}>
-            content {i}
-          </div>
-        ))}
+        <div style={{ background: "#ddd" }}>
+          {new Array(count).fill(null).map((_value, i) => (
+            <div
+              key={i}
+              style={{ borderBottom: "1px solid black", padding: "4px" }}
+            >
+              message {i + 1}
+            </div>
+          ))}
+        </div>
       </ScrollEndPinner>
     </div>
   );
