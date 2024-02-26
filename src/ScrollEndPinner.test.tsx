@@ -7,7 +7,7 @@ import {
   setScrollHeight,
   waitForResizeObserverCallbacks,
 } from "./test/elementMocks";
-import ScrollEndPinner from "./ScrollEndPinner";
+import { ScrollEndPinner } from "./ScrollEndPinner";
 
 class TestHelper {
   public readonly extraOuterEl: Element;

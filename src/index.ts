@@ -1,1 +1,1 @@
-export { default as ScrollEndPinner } from "./ScrollEndPinner";
+export * from "./ScrollEndPinner";

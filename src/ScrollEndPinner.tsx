@@ -3,7 +3,7 @@
 import { ReactNode, useRef } from "react";
 import useIsomorphicLayoutEffect from "react-use/lib/useIsomorphicLayoutEffect";
 
-export interface Props {
+export interface ScrollEndPinnerProps {
   children?: ReactNode;
   /**
    * Controls whether the scroll to end is smooth or instant.
@@ -40,7 +40,7 @@ const autoScrollMaxTime = 5_000;
  *   thinner and the word-wrapping makes the contents taller).
  * - The ScrollEndPinner grows taller (such as when the window is resized to be taller).
  */
-export default function ScrollEndPinner(props: Props) {
+export function ScrollEndPinner(props: ScrollEndPinnerProps) {
   const scrollToEndOnMount = props.scrollToEndOnMount ?? true;
   const scrollBehavior = props.scrollBehavior ?? "instant";
   const endThreshold = props.endThreshold ?? 5;

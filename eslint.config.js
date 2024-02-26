@@ -3,7 +3,10 @@ const tseslint = require("typescript-eslint");
 const eslintConfigPrettier = require("eslint-config-prettier");
 const reactRecommended = require("eslint-plugin-react/configs/recommended");
 const reactJsxRuntime = require("eslint-plugin-react/configs/jsx-runtime");
+
+// eslint configs that don't directly support new eslint configs
 const reactHooks = require("eslint-plugin-react-hooks");
+const storybook = require("eslint-plugin-storybook");
 
 module.exports = tseslint.config(
   { ignores: ["dist/"] },
@@ -27,6 +30,7 @@ module.exports = tseslint.config(
     },
     plugins: {
       "react-hooks": reactHooks,
+      storybook: storybook,
     },
     rules: {
       ...reactHooks.configs.recommended.rules,
@@ -41,4 +45,5 @@ module.exports = tseslint.config(
       ],
     },
   },
+  ...storybook.configs.recommended.overrides,
 );
