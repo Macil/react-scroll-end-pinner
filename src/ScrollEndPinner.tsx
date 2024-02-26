@@ -73,7 +73,8 @@ export default function ScrollEndPinner(props: Props) {
 
   useIsomorphicLayoutEffect(() => {
     if (scrollToEndOnMount) {
-      outerRef.current!.scrollHeight - outerRef.current!.clientHeight;
+      outerRef.current!.scrollTop =
+        outerRef.current!.scrollHeight - outerRef.current!.clientHeight;
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
