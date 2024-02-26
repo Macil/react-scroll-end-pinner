@@ -124,7 +124,7 @@ export default function ScrollEndPinner(props: Props) {
       });
       // Observe the inner div so we know when it gets taller.
       ro.observe(innerRef.current!);
-      // Observer the outer div so we know when it gets shorter (e.g. when the window is resized).
+      // Observe the outer div so we know when it gets shorter (e.g. when the window is resized).
       // Firefox has an issue where ResizeObserver doesn't work right with scrollable elements,
       // so we observe an extra wrapper div instead.
       ro.observe(extraOuterRef.current!);
