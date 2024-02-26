@@ -9,7 +9,6 @@ ScrollEndPinner is a React component for creating a scrollable area that stays s
 TODO:
 
 - write readme with usage example
-- write fuller tests
 - create example page (use storybook?)
 
 ## Similar Techniques

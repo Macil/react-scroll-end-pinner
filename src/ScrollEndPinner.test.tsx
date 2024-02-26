@@ -1,46 +1,72 @@
-import { render, screen } from "@testing-library/react";
+import { render } from "@testing-library/react";
 import "@testing-library/jest-dom";
 
+import { createRef } from "react";
+import {
+  setClientHeight,
+  setScrollHeight,
+  waitForResizeObserverCallbacks,
+} from "./test/elementMocks";
 import ScrollEndPinner from "./ScrollEndPinner";
 
-const mockResizeObservers: MockResizeObserver[] = [];
+class TestHelper {
+  public readonly extraOuterEl: Element;
+  public readonly outerEl: Element;
+  public readonly innerEl: Element;
 
-afterEach(() => {
-  mockResizeObservers.length = 0;
-});
-
-class MockResizeObserver {
-  _observedElements = new Map<Element, ResizeObserverOptions | undefined>();
-  _callback: ResizeObserverCallback;
-
-  constructor(callback: ResizeObserverCallback) {
-    this._callback = callback;
-    mockResizeObservers.push(this);
+  constructor(public readonly containerElement: Element) {
+    this.extraOuterEl = containerElement.firstElementChild!;
+    this.outerEl = this.extraOuterEl.firstElementChild!;
+    this.innerEl = this.outerEl.firstElementChild!;
   }
 
-  observe(target: Element, options?: ResizeObserverOptions): void {
-    this._observedElements.set(target, options);
+  setHeight(outerHeight: number, scrollHeight: number): Promise<void> {
+    setClientHeight(this.extraOuterEl, outerHeight);
+
+    setClientHeight(this.outerEl, outerHeight);
+    setScrollHeight(this.outerEl, scrollHeight);
+
+    setClientHeight(this.innerEl, scrollHeight);
+
+    return waitForResizeObserverCallbacks();
   }
-  unobserve(target: Element): void {
-    this._observedElements.delete(target);
+
+  getScrollTop(): number {
+    return this.outerEl.scrollTop;
   }
-  disconnect(): void {
-    this._observedElements.clear();
+
+  setScrollTop(val: number): void {
+    this.outerEl.scrollTop = val;
   }
 }
 
-(globalThis.ResizeObserver as any) = MockResizeObserver;
+test("works", async () => {
+  const containerRef = createRef<HTMLDivElement>();
 
-test("mounts", async () => {
   render(
-    <ScrollEndPinner>
-      <div data-testid="content">A</div>
-    </ScrollEndPinner>,
+    <div ref={containerRef}>
+      <ScrollEndPinner>
+        <div>content</div>
+      </ScrollEndPinner>
+    </div>,
   );
 
-  await screen.findByTestId("content");
+  const helper = new TestHelper(containerRef.current!);
 
-  expect(screen.getByTestId("content")).toHaveTextContent("A");
+  expect(helper.getScrollTop()).toBe(0);
 
-  // TODO test the behavior of the component
+  // expand the scroll height and check we stay pinned to bottom
+  await helper.setHeight(100, 200);
+  expect(helper.getScrollTop()).toBe(100);
+
+  // expand the scroll height again and check we stay pinned to bottom
+  await helper.setHeight(100, 250);
+  expect(helper.getScrollTop()).toBe(150);
+
+  // scroll up a bit
+  helper.setScrollTop(120);
+
+  // expand the scroll height again and check we are *not* pinned
+  await helper.setHeight(100, 300);
+  expect(helper.getScrollTop()).toBe(120);
 });
